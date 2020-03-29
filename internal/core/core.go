@@ -39,4 +39,5 @@ func (c *Core) ReportDebug(msg string) {
 }
 
 func (c *Core) printMessage() {
+	//test
 }
