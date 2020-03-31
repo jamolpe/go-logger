@@ -14,6 +14,12 @@ type (
 	}
 )
 
+const (
+	infoColour    = "\033[1;36m%s\033[0m"
+	errorColour   = "\033[1;31m%s\033[0m"
+	warningColour = "\033[1;35m%s\033[0m"
+)
+
 func New(config models.Configuration) *Core {
 	core := &Core{repo: &config.Repository}
 	configure(core, config)
