@@ -1,18 +1,27 @@
 package models
 
+import "time"
+
 type Configuration struct {
 	DisplayLogs bool
-	LogLevel    string
-	SaveLogs    string
+	LogLevels   DisplayConfiguration
+	SaveLogs    bool
 	Repository  Repository
 }
 
+type DisplayConfiguration struct {
+	DisplayDebug    bool
+	DisplayWarnings bool
+	DisplayError    bool
+	DisplayInfo     bool
+}
+
 type LogModel struct {
-	TypeCode   int
-	Message    string
-	ColourCode string
+	Head    string
+	Message string
+	Time    time.Time
 }
 
 type Repository interface {
-	SaveLog() error
+	SaveLog(log LogModel) error
 }
