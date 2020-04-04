@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"gologger/internal/printer"
 	"gologger/pkg/models"
+	"time"
 )
 
 type (
 	Core struct {
-		repo *models.Repository
+		repo models.Repository
 		configuration
 	}
 	configuration struct {
@@ -26,7 +27,7 @@ const (
 )
 
 func New(config models.Configuration) *Core {
-	core := &Core{repo: &config.Repository}
+	core := &Core{repo: config.Repository}
 	configure(core, config)
 	return core
 }
@@ -50,6 +51,7 @@ func (c *Core) ReportError(msg string) {
 		c.workWithLog(head, msg)
 	}
 }
+
 func (c *Core) ReportInfo(msg string) {
 	if c.configuration.logLevels.DisplayInfo {
 		head := fmt.Sprintf(infoColour, "INFO")
@@ -65,10 +67,11 @@ func (c *Core) ReportDebug(msg string) {
 }
 
 func (c *Core) workWithLog(head, msg string) {
+	log := models.LogModel{Head: head, Message: msg, Time: time.Now()}
 	if c.configuration.saveLogs && c.repo != nil {
-		c.repo.SaveLog()
+		c.repo.SaveLog(log)
 	}
 	if c.configuration.displayLogs {
-		printer.PrintMessage(head, msg)
+		printer.PrintMessage(log)
 	}
 }

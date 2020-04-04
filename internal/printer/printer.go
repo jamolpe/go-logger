@@ -1,8 +1,11 @@
 package printer
 
-import "fmt"
+import (
+	"fmt"
+	"gologger/pkg/models"
+)
 
-func PrintMessage(head, message string) {
-	formatedMessage := head + ": " + message
+func PrintMessage(log models.LogModel) {
+	formatedMessage := log.Time.String() + " " + log.Head + " : " + log.Message
 	fmt.Println(formatedMessage)
 }
