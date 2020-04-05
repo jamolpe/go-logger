@@ -15,8 +15,8 @@ func main() {
 		},
 	}
 	logger := logger.New(config)
-	logger.DEBUG("soy debug")
-	logger.ERROR("soy error")
-	logger.INFO("soy info")
-	logger.WARNING("soy waring")
+	logger.DEBUG("I'm debug")
+	logger.ERROR("I'm error")
+	logger.INFO("I'm info")
+	logger.WARNING("I'm waring")
 }
