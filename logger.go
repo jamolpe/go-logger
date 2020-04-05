@@ -1,55 +1,32 @@
-package gologger
+package logger
 
 import (
-	"fmt"
-	"time"
+	"gologger/internal/core"
+	"gologger/pkg/models"
 )
 
-type mType string
-
-const (
-	error   = mType("ERROR")
-	info    = mType("INFO")
-	warning = mType("WARNING")
-	debug   = mType("DEBUG")
-)
-
-type (
-	loggerMessage struct {
-		time    time.Time
-		message string
-	}
-)
-
-func createBaseForLog(message string) *loggerMessage {
-	date := time.Now()
-	return &loggerMessage{time: date, message: message}
+type Logger struct {
+	core *core.Core
 }
 
-func printMessage(typeM mType, loggerMessage *loggerMessage) {
-	fmt.Println(typeM, " at: ", loggerMessage.time.Format(time.RFC3339), " message: ", loggerMessage.message)
+func New(config models.Configuration) Logger {
+	core := core.New(config)
+	logger := Logger{core: core}
+	return logger
 }
 
-// INFO : print information message
-func INFO(message string) {
-	loggerMessage := createBaseForLog(message)
-	printMessage(info, loggerMessage)
+func (l *Logger) INFO(message string) {
+	l.core.ReportInfo(message)
 }
 
-// ERROR : print error information message
-func ERROR(message string) {
-	loggerMessage := createBaseForLog(message)
-	printMessage(error, loggerMessage)
+func (l *Logger) ERROR(message string) {
+	l.core.ReportError(message)
 }
 
-// WARNING : print warning message
-func WARNING(message string) {
-	loggerMessage := createBaseForLog(message)
-	printMessage(warning, loggerMessage)
+func (l *Logger) DEBUG(message string) {
+	l.core.ReportDebug(message)
 }
 
-// DEBUG : print message at debug lvl
-func DEBUG(message string) {
-	loggerMessage := createBaseForLog(message)
-	printMessage(warning, loggerMessage)
+func (l *Logger) WARNING(message string) {
+	l.core.ReportWarning(message)
 }
