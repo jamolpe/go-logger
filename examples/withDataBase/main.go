@@ -10,7 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func ConfigureAndConnect() *mongo.Client {
+type repository struct {
+	client        *mongo.Client
+	database      *mongo.Database
+	logCollection *mongo.Collection
+}
+
+func configureAndConnect() *mongo.Client {
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
@@ -26,14 +32,28 @@ func ConfigureAndConnect() *mongo.Client {
 	return client
 }
 
+func new(client *mongo.Client) models.Repository {
+	database := client.Database("Logger")
+	logCollection := database.Collection("logs")
+	return &repository{logCollection: logCollection}
+}
+
+func (repo *repository) SaveLog(log models.LogModel) error {
+	_, err := repo.logCollection.InsertOne(context.TODO(), log)
+	return err
+}
+
 func main() {
-	config := models.Configuration{DisplayLogs: true, SaveLogs: false,
+	client := configureAndConnect()
+	repo := new(client)
+	config := models.Configuration{DisplayLogs: true, SaveLogs: true,
 		LogLevels: models.DisplayConfiguration{
 			DisplayDebug:    true,
 			DisplayWarnings: true,
 			DisplayError:    true,
 			DisplayInfo:     true,
 		},
+		Repository: repo,
 	}
 	logger := logger.New(config)
 	logger.DEBUG("I'm debug")
