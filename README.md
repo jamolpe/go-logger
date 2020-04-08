@@ -1,8 +1,11 @@
 # Go-Logger
 
 Basic library for logs, this logs are displayed with ANSI colours in linux terminals (windows yet to come).
-Logs can be stored in database if configuration is provided.
-Logs can be ignored with the configuration (this is usefull for diferent stages configuration)
+Features:
+
+- Logs can be stored in database if configuration is provided.
+- Logs can be ignored with the configuration (this is usefull for diferent stages configuration)
+- Library can be extended using the interface provided
 
 ## usage
 

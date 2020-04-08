@@ -5,14 +5,21 @@ import (
 	"gologger/pkg/models"
 )
 
+type LoggerI interface {
+	INFO(message string)
+	ERROR(message string)
+	DEBUG(message string)
+	WARNING(message string)
+}
+
 type Logger struct {
 	core *core.Core
 }
 
-func New(config models.Configuration) Logger {
+func New(config models.Configuration) LoggerI {
 	core := core.New(config)
 	logger := Logger{core: core}
-	return logger
+	return &logger
 }
 
 func (l *Logger) INFO(message string) {
