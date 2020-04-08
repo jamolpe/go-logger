@@ -26,6 +26,7 @@ const (
 	debugColour   = "\033[1;35m%s\033[0m"
 )
 
+// creates a new configuration
 func New(config models.Configuration) *Core {
 	core := &Core{repo: config.Repository}
 	configure(core, config)
@@ -40,34 +41,34 @@ func configure(c *Core, config models.Configuration) {
 
 func (c *Core) ReportWarning(msg string) {
 	if c.configuration.logLevels.DisplayWarnings {
-		head := fmt.Sprintf(warningColour, "WARNING")
-		c.workWithLog(head, msg)
+		formatedHead := fmt.Sprintf(warningColour, "WARNING")
+		c.processLog("WARNING", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportError(msg string) {
 	if c.configuration.logLevels.DisplayError {
-		head := fmt.Sprintf(errorColour, "ERROR")
-		c.workWithLog(head, msg)
+		formatedHead := fmt.Sprintf(errorColour, "ERROR")
+		c.processLog("ERROR", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportInfo(msg string) {
 	if c.configuration.logLevels.DisplayInfo {
-		head := fmt.Sprintf(infoColour, "INFO")
-		c.workWithLog(head, msg)
+		formatedHead := fmt.Sprintf(infoColour, "INFO")
+		c.processLog("INFO", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportDebug(msg string) {
 	if c.configuration.logLevels.DisplayDebug {
-		head := fmt.Sprintf(debugColour, "DEBUG")
-		c.workWithLog(head, msg)
+		formatedHead := fmt.Sprintf(debugColour, "DEBUG")
+		c.processLog("DEBUG", formatedHead, msg)
 	}
 }
 
-func (c *Core) workWithLog(head, msg string) {
-	log := models.LogModel{Head: head, Message: msg, Time: time.Now()}
+func (c *Core) processLog(head, formatedhead, msg string) {
+	log := models.LogModel{FormatedHead: formatedhead, Head: head, Message: msg, Time: time.Now()}
 	if c.configuration.saveLogs && c.repo != nil {
 		c.repo.SaveLog(log)
 	}
