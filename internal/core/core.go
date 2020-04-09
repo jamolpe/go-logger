@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gologger/internal/printer"
 	"gologger/pkg/models"
+	"runtime"
 	"time"
 )
 
@@ -26,7 +27,7 @@ const (
 	debugColour   = "\033[1;35m%s\033[0m"
 )
 
-// creates a new configuration
+// New creates a new configuration
 func New(config models.Configuration) *Core {
 	core := &Core{repo: config.Repository}
 	configure(core, config)
@@ -41,28 +42,48 @@ func configure(c *Core, config models.Configuration) {
 
 func (c *Core) ReportWarning(msg string) {
 	if c.configuration.logLevels.DisplayWarnings {
-		formatedHead := fmt.Sprintf(warningColour, "WARNING")
+		formatedHead := ""
+		if runtime.GOOS == "windows" {
+			formatedHead = "WARNING"
+		} else {
+			formatedHead = fmt.Sprintf(warningColour, "WARNING")
+		}
 		c.processLog("WARNING", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportError(msg string) {
 	if c.configuration.logLevels.DisplayError {
-		formatedHead := fmt.Sprintf(errorColour, "ERROR")
+		formatedHead := ""
+		if runtime.GOOS == "windows" {
+			formatedHead = "ERROR"
+		} else {
+			formatedHead = fmt.Sprintf(errorColour, "ERROR")
+		}
 		c.processLog("ERROR", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportInfo(msg string) {
 	if c.configuration.logLevels.DisplayInfo {
-		formatedHead := fmt.Sprintf(infoColour, "INFO")
+		formatedHead := ""
+		if runtime.GOOS == "windows" {
+			formatedHead = "INFO"
+		} else {
+			formatedHead = fmt.Sprintf(infoColour, "INFO")
+		}
 		c.processLog("INFO", formatedHead, msg)
 	}
 }
 
 func (c *Core) ReportDebug(msg string) {
 	if c.configuration.logLevels.DisplayDebug {
-		formatedHead := fmt.Sprintf(debugColour, "DEBUG")
+		formatedHead := ""
+		if runtime.GOOS == "windows" {
+			formatedHead = "DEBUG"
+		} else {
+			formatedHead = fmt.Sprintf(debugColour, "DEBUG")
+		}
 		c.processLog("DEBUG", formatedHead, msg)
 	}
 }
