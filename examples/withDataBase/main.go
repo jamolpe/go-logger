@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	logger "gologger"
-	"gologger/pkg/models"
+
+	logger "github.com/jamolpe/gologger"
+	"github.com/jamolpe/gologger/pkg/models"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

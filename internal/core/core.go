@@ -2,10 +2,11 @@ package core
 
 import (
 	"fmt"
-	"gologger/internal/printer"
-	"gologger/pkg/models"
 	"runtime"
 	"time"
+
+	"github.com/jamolpe/gologger/internal/printer"
+	"github.com/jamolpe/gologger/pkg/models"
 )
 
 type (

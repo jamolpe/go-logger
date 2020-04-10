@@ -1,8 +1,8 @@
 package gologger
 
 import (
-	"gologger/internal/core"
-	"gologger/pkg/models"
+	"github.com/jamolpe/gologger/internal/core"
+	"github.com/jamolpe/gologger/pkg/models"
 )
 
 /*

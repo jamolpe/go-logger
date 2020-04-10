@@ -1,8 +1,9 @@
 package main
 
 import (
-	logger "gologger"
-	"gologger/pkg/models"
+	"github.com/jamolpe/gologger/pkg/models"
+
+	logger "github.com/jamolpe/gologger"
 )
 
 func main() {
