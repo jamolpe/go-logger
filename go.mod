@@ -1,4 +1,4 @@
-module gologger
+module github.com/jamolpe/gologger
 
 go 1.14
 
