@@ -5,8 +5,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/jamolpe/gologger/internal/printer"
-	"github.com/jamolpe/gologger/pkg/models"
+	"gologger/internal/printer"
+	"gologger/pkg/models"
 )
 
 type (

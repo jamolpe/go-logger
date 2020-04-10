@@ -3,7 +3,7 @@ package printer
 import (
 	"fmt"
 
-	"github.com/jamolpe/gologger/pkg/models"
+	"gologger/pkg/models"
 )
 
 // PrintMessage prints the log with corresponding format
