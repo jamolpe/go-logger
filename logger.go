@@ -1,4 +1,4 @@
-package logger
+package gologger
 
 import (
 	"gologger/internal/core"
